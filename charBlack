@@ -1,0 +1,404 @@
+//_________________________________________________________________________________________________________________________\*/________BlACK
+class catBlack {
+  catBlack(float p_xPos, float p_yPos, float p_g) { //konstruktor charBlack
+    xPosBlack = p_xPos;
+    yPosBlack = p_yPos;
+    g         = p_g;
+  }
+  void displayBlack() {
+    xPosBlack += vxBlack;  //gravitation fall
+    vyBlack += gravity;
+    yPosBlack += vyBlack;
+    if ((sh_turningRight) && (charSwitch)  && (attackBlack == false)  && (isDeadBlack == false) && (happy)) { //right animation
+      xPosBlack = xPosBlack + g;
+      if (collideBlack) {
+        currentFrame = (currentFrame+1) % numFrames;  
+        image(charBlackRight[currentFrame], xPosBlack, yPosBlack, 45, 61);
+      } else {
+        image(jumpBlackRight, xPosBlack, yPosBlack, 45, 61);
+      }
+    } else if ((sh_turningLeft) && (charSwitch)  && (attackBlack == false)  && (isDeadBlack == false) && (happy)) { //left animation
+      xPosBlack = xPosBlack - g;
+      if (collideBlack) {
+        currentFrame = (currentFrame+1) % numFrames;  
+        image(charBlackLeft[currentFrame], xPosBlack, yPosBlack, 45, 61);
+      } else {
+        image(jumpBlackLeft, xPosBlack, yPosBlack, 45, 61);
+      }
+    } else {
+      if ((collideBlack) && (attackBlack == false)  && (isDeadBlack == false) && (happy)) { //stand animation
+        currentFrame = (currentFrame+1) % numFrames;  
+        image(charBlack[currentFrame], xPosBlack, yPosBlack, 30, 61);
+        //print(xPosBlack);
+      } else {
+        if ((attackBlack == false) && (isDeadBlack == false) && (happy)) { //jump animation
+          image(jumpBlackRight, xPosBlack, yPosBlack, 45, 61);
+        }
+      }
+    }
+  }
+  void collideBlack() { //stage1
+    int recX = 0;
+    int recY = 196;
+    float DeltaX = (xPosBlack + 22) - max(recX, min((xPosBlack + 22), recX + 200));
+    float DeltaY = (yPosBlack + 65) - max(recY, min((yPosBlack + 65), recY + 50));
+    int rec2X = 265;
+    int rec2Y = 260;
+    float Delta2X = (xPosBlack + 22) - max(rec2X, min((xPosBlack + 22), rec2X + 100));
+    float Delta2Y = (yPosBlack + 65) - max(rec2Y, min((yPosBlack + 65), rec2Y + 10));
+    int rec3X = 420;
+    int rec3Y = 280;
+    float Delta3X = (xPosBlack + 22) - max(rec3X, min((xPosBlack + 22), rec3X + 100));
+    float Delta3Y = (yPosBlack + 65) - max(rec3Y, min((yPosBlack + 65), rec3Y + 10));
+    int rec4X = 575;
+    int rec4Y = 310;
+    float Delta4X = (xPosBlack + 22) - max(rec4X, min((xPosBlack + 22), rec4X + 100));
+    float Delta4Y = (yPosBlack + 65) - max(rec4Y, min((yPosBlack + 65), rec4Y + 10));
+    int rec5X = 700;
+    int rec5Y = 270;
+    float Delta5X = (xPosBlack + 22) - max(rec5X, min((xPosBlack + 22), rec5X + 100));
+    float Delta5Y = (yPosBlack + 65) - max(rec5Y, min((yPosBlack + 65), rec5Y + 10));
+    int rec6X = 880;
+    int rec6Y = 270;
+    float Delta6X = (xPosBlack + 22) - max(rec6X, min((xPosBlack + 22), rec6X + 100));
+    float Delta6Y = (yPosBlack + 65) - max(rec6Y, min((yPosBlack + 65), rec6Y + 10));
+    int rec7X = 1040;
+    int rec7Y = 250;
+    float Delta7X = (xPosBlack + 22) - max(rec7X, min((xPosBlack + 22), rec7X + 100));
+    float Delta7Y = (yPosBlack + 65) - max(rec7Y, min((yPosBlack + 65), rec7Y + 10));
+    int rec8X = 1190;
+    int rec8Y = 220;
+    float Delta8X = (xPosBlack + 22) - max(rec8X, min((xPosBlack + 22), rec8X + 150));
+    float Delta8Y = (yPosBlack + 65) - max(rec8Y, min((yPosBlack + 65), rec8Y + 10));
+    int rec9X = 1400;
+    int rec9Y = 196;
+    float Delta9X = (xPosBlack + 22) - max(rec9X, min((xPosBlack + 22), rec9X + 200));
+    float Delta9Y = (yPosBlack + 65) - max(rec9Y, min((yPosBlack + 65), rec9Y + 50));
+    if (yPosBlack > (displayHeight - 60)) {
+      isDeadBlack = true;
+    }
+    //links schwarz
+    else if ((DeltaX * DeltaX + DeltaY * DeltaY) < ( 1 )) {
+      collideBlack = true;
+      yPosBlack = 135;
+      vyBlack = 0;
+    }
+    //1
+    else if ((Delta2X * Delta2X + Delta2Y * Delta2Y) < ( 1 )) {
+      collideBlack = true;
+      yPosBlack = 198;
+      vyBlack = 0;
+    } 
+    //2
+    else if ((Delta3X * Delta3X + Delta3Y * Delta3Y) < ( 1 )) {
+      collideBlack = true;
+      yPosBlack = 218;
+      vyBlack = 0;
+    }
+    //3
+    else if ((Delta4X * Delta4X + Delta4Y * Delta4Y) < ( 1 )) {
+      collideBlack = true;
+      yPosBlack = 248;
+      vyBlack = 0;
+    } 
+    //4
+    else if ((Delta5X * Delta5X + Delta5Y * Delta5Y) < ( 1 )) {
+      collideBlack = true;
+      yPosBlack = 208;
+      vyBlack = 0;
+    }
+    //5
+    else if ((Delta6X * Delta6X + Delta6Y * Delta6Y) < ( 1 )) {
+      collideBlack = true;
+      yPosBlack = 208;
+      vyBlack = 0;
+    }
+    //6
+    else if ((Delta7X * Delta7X + Delta7Y * Delta7Y) < ( 1 )) {
+      collideBlack = true;
+      yPosBlack = 188;
+      vyBlack = 0;
+    }
+    //7
+    else if ((Delta8X * Delta8X + Delta8Y * Delta8Y) < ( 1 )) {
+      collideBlack = true;
+      yPosBlack = 158;
+      vyBlack = 0;
+    }
+    //8
+    else if ((Delta9X * Delta9X + Delta9Y * Delta9Y) < ( 1 )) {
+      collideBlack = true;
+      yPosBlack = 134;
+      vyBlack = 0;
+      fill(#005F00);
+      rect(1530, 194, 200, 35);  //1530,195,200,35);
+      blackstage1 = true;
+    } else {
+      collideBlack = false;
+      blackstage1 = false;
+    }
+    if (xPosBlack < 0 + 5) {
+      xPosBlack = 0 + 5;
+      //isDeadBlack = true;        //_----------------------------------------------------------------------einfügen zum sterben black char
+    }
+    if (xPosBlack > (displayWidth  - 50)) {
+      //  collideBlack = true;
+      xPosBlack = displayWidth - 100 / 2;
+    }
+    if ((yPosBlack + 65) > 440) {
+      isDeadBlack = true;
+    }
+    if ((xPosBlack > 545 - 50) && (schluessel1 == false)) {
+      xPosBlack = 545 - 50;
+    }
+    if ((xPosBlack > 1165 - 50) && (schluessel4 == false)) {
+      xPosBlack = 1165 - 50;
+    }
+    //ellipse(1095,220,1,1);
+    float xDiff = (xPosBlack +20) - 760;
+    float yDiff = (yPosBlack + 20) - 230;
+    double distance = sqrt(sq(xDiff) + sq(yDiff) );
+
+    float xDiff2 = (xPosBlack +20) - 1095;
+    float yDiff2 = (yPosBlack + 20) - 220;
+    double distance2 = sqrt(sq(xDiff2) + sq(yDiff2) );
+    if ( distance < (60 / 2)) {
+      balken2 = true;
+      schluessel2 = true;
+      //print("tes");
+    }
+    if ( distance2 < (60 / 2)) {
+      balken3 = true;
+      schluessel3 = true;
+      //print("tes");
+    }
+    if (isDeadBlack) { //wenn tot..
+      currentFrame = (currentFrame+1) % 16;  // Use % to cycle through frames
+      image(charBlackDie[currentFrame], xPosBlack, yPosBlack, 78, 61);
+      dieBlack += 1;
+      if (dieBlack == 5) {
+        //fill(255,0,0);
+        //ellipse(xPosBlack,yPosBlack,5,5);
+        vyBlack = 0;
+        xDeath = xPosBlack;
+        yDeath = yPosBlack;
+        deathsoundChar.play();                //spawn punk white 30 550
+        isDead = false;                              // 30 90
+        isDeadBlack = false;
+        xPosBlack = 30;
+        yPosBlack = 90;            //______________________________________________________________________SPAWN PUNKT ÄNDERN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        xPosWhite = 30;
+        yPosWhite = 520;
+        dieBlack = 0;
+        deathCounter++;
+        print(deathCounter);
+      }
+    }
+  }
+  void blackCollideStage2() { //stage2
+    int recX = 0;
+    int recY = 196;
+    float DeltaX = (xPosBlack + 22) - max(recX, min((xPosBlack + 22), recX + 200));
+    float DeltaY = (yPosBlack + 65) - max(recY, min((yPosBlack + 65), recY + 50));
+    int recX2 = 230;
+    int recY2 = 300;
+    float DeltaX2 = (xPosBlack + 22) - max(recX2, min((xPosBlack + 22), recX2 + 115));
+    float DeltaY2 = (yPosBlack + 65) - max(recY2, min((yPosBlack + 65), recY2 + 10));
+    int recX3 = 390;
+    int recY3 = 360;
+    float DeltaX3 = (xPosBlack + 22) - max(recX3, min((xPosBlack + 22), recX3 + 115));
+    float DeltaY3 = (yPosBlack + 65) - max(recY3, min((yPosBlack + 65), recY3 + 10));
+    int recX4 = 550;
+    int recY4 = 300;
+    float DeltaX4 = (xPosBlack + 22) - max(recX4, min((xPosBlack + 22), recX4 + 115));
+    float DeltaY4 = (yPosBlack + 65) - max(recY4, min((yPosBlack + 65), recY4 + 10));
+    int recX5 = 750;
+    int recY5 = 350;
+    float DeltaX5 = (xPosBlack + 22) - max(recX5, min((xPosBlack + 22), recX5 + 55));
+    float DeltaY5 = (yPosBlack + 65) - max(recY5, min((yPosBlack + 65), recY5 + 10));
+    int recX6 = 900;
+    int recY6 = 410;
+    float DeltaX6 = (xPosBlack + 22) - max(recX6, min((xPosBlack + 22), recX6 + 115));
+    float DeltaY6 = (yPosBlack + 65) - max(recY6, min((yPosBlack + 65), recY6 + 10));
+    int recX7 = 1150;
+    int recY7 = 360;
+    float DeltaX7 = (xPosBlack + 22) - max(recX7, min((xPosBlack + 22), recX7 + 115));
+    float DeltaY7 = (yPosBlack + 65) - max(recY7, min((yPosBlack + 65), recY7 + 10));
+    int rec9X = 1400;
+    int rec9Y = 196;
+    float Delta9X = (xPosBlack + 22) - max(rec9X, min((xPosBlack + 22), rec9X + 200));
+    float Delta9Y = (yPosBlack + 65) - max(rec9Y, min((yPosBlack + 65), rec9Y + 50));
+    if (yPosBlack > (displayHeight - 60)) {
+      isDeadBlack = true;
+    }
+    //links schwarz
+    else if ((DeltaX * DeltaX + DeltaY * DeltaY) < ( 1 )) {
+      collideBlack = true;
+      yPosBlack = 135;
+      vyBlack = 0;
+    } else if ((DeltaX2 * DeltaX2 + DeltaY2 * DeltaY2) < ( 1 )) {
+      collideBlack = true;
+      yPosBlack = 243;
+      vyBlack = 0;
+    } else if ((DeltaX3 * DeltaX3 + DeltaY3 * DeltaY3) < ( 1 )) {
+      collideBlack = true;
+      yPosBlack = 310;
+      vyBlack = -17;
+    } else if ((DeltaX4 * DeltaX4 + DeltaY4 * DeltaY4) < ( 1 )) {
+      collideBlack = true;
+      yPosBlack = 243;
+      vyBlack = 0;
+    } else if ((DeltaX5 * DeltaX5 + DeltaY5 * DeltaY5) < ( 1 )) {
+      collideBlack = true;
+      yPosBlack = 293;
+      vyBlack = 0;
+    } else if ((Delta9X * Delta9X + Delta9Y * Delta9Y) < ( 1 )) {
+      collideBlack = true;
+      yPosBlack = 134;
+      vyBlack = 0;
+      fill(#005F00);
+      rect(1530, 194, 200, 35);  //1530,195,200,35);
+      blackstage2 = true;
+    } else {
+      collideBlack = false;
+      blackstage2 = false;
+    }
+    if (xPosBlack > (displayWidth  - 50)) {
+      //  collideBlack = true;
+      xPosBlack = displayWidth - 100 / 2;
+    }
+    //println((DeltaX6 * DeltaX6 + DeltaY6 * DeltaY6));
+    if ((DeltaX7 * DeltaX7 + DeltaY7 * DeltaY7) < ( 15.5 )) {
+      //collideBlack = true;
+      yPosBlack = 310;
+      vyBlack = -21;
+    }
+    if ((DeltaX6 * DeltaX6 + DeltaY6 * DeltaY6) < ( 30 )) {
+      //collideBlack = true;
+      yPosBlack = 355;
+      vyBlack = -17;
+    }
+    if ((yPosBlack + 65) > 440) {
+      isDeadBlack = true;
+    }
+    if (xPosBlack < 0 + 5) {
+      xPosBlack = 0 + 5;
+      //isDeadBlack = true;        //_----------------------------------------------------------------------einfügen zum sterben black char
+    }
+    if ((xPosBlack > 525 - 50) && (schluessel5 == false)) {
+      xPosBlack = 525     - 50;
+    }
+    float xDiff = (xPosBlack +20) - 1360;
+    float yDiff = (yPosBlack + 20) - 320;
+    double distance = sqrt(sq(xDiff) + sq(yDiff) );
+
+    float xDiff2 = (xPosBlack +20) - 1030;
+    float yDiff2 = (yPosBlack + 20) - 130;  
+    double distance2 = sqrt(sq(xDiff2) + sq(yDiff2) );
+    //println(distance2);
+
+    if ( distance < (60 / 2)) {
+      balken6 = true;
+      schluessel6 = true;
+      //print("tes");
+    }
+    if ( distance2 < (60 / 2)) {
+      balken7 = true;
+      schluessel7 = true;
+      //print("tes");
+    }
+    if (isDeadBlack) {
+      currentFrame = (currentFrame+1) % 16;  // Use % to cycle through frames
+      image(charBlackDie[currentFrame], xPosBlack, yPosBlack, 78, 61); //death animation
+      dieBlack += 1;
+      if (dieBlack == 5) {
+        //fill(255,0,0);
+        //ellipse(xPosBlack,yPosBlack,5,5);
+        vyBlack = 0;
+        xDeath = xPosBlack;
+        yDeath = yPosBlack;
+        deathsoundChar.play();                //spawn punk white 30 550
+        isDead = false;                              // 30 90
+        isDeadBlack = false;
+        xPosBlack = 30;
+        yPosBlack = 90;            //______________________________________________________________________SPAWN PUNKT ÄNDERN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        xPosWhite = 30;
+        yPosWhite = 520;
+        dieBlack = 0;
+        deathCounter++;
+        print(deathCounter);
+      }
+    }
+  }
+  void blackCollideStage3() { //stage3 (boss)
+    //println(vyBlack);
+    int recX = 200;
+    int recY = 960;
+    float DeltaX = (xPosBlack + 22) - max(recX, min((xPosBlack + 22), recX + 100)); //plattformen
+    float DeltaY = (yPosBlack + 65) - max(recY, min((yPosBlack + 65), recY + 10));
+    int recX2 = 350;
+    int recY2 = 810;
+    float DeltaX2 = (xPosBlack + 22) - max(recX2, min((xPosBlack + 22), recX2 + 100));
+    float DeltaY2 = (yPosBlack + 65) - max(recY2, min((yPosBlack + 65), recY2 + 10));
+    int recX3 = 100;
+    int recY3 = 710;
+    float DeltaX3 = (xPosBlack + 22) - max(recX3, min((xPosBlack + 22), recX3 + 100));
+    float DeltaY3 = (yPosBlack + 65) - max(recY3, min((yPosBlack + 65), recY3 + 10));
+    int recX4 = 300;
+    int recY4 = 560;
+    float DeltaX4 = (xPosBlack + 22) - max(recX4, min((xPosBlack + 22), recX4 + 100));
+    float DeltaY4 = (yPosBlack + 65) - max(recY4, min((yPosBlack + 65), recY4 + 10));
+    int recX5 = 510;
+    int recY5 = 455;
+    float DeltaX5 = (xPosBlack + 22) - max(recX5, min((xPosBlack + 22), recX5 + 150));
+    float DeltaY5 = (yPosBlack + 65) - max(recY5, min((yPosBlack + 65), recY5 + 10));
+    if (yPosBlack > (displayHeight - 80)) {
+      yPosBlack = displayHeight - 80;
+      collideBlack = true;
+      vyBlack = 0;
+    } else if ((DeltaX5 * DeltaX5 + DeltaY5 * DeltaY5) < ( 1 )) {
+      //print("test");
+      yPosBlack = 390;
+      collideBlack = true;
+      vyBlack = 0;
+    } else {
+      collideBlack = false;
+    }
+    if (xPosBlack < (0+3)) {
+      //collideBlack = true;
+      xPosBlack = 0+3;
+    }
+    if (xPosBlack > (displayWidth / 2) - 30) {
+      xPosBlack = displayWidth / 2 - 30;
+    }
+    if ((DeltaX * DeltaX + DeltaY * DeltaY) < ( 30.5 )) {
+      //print("test");
+      yPosBlack = 895;
+      vyBlack = -19;
+    }
+    if ((DeltaX2 * DeltaX2 + DeltaY2 * DeltaY2) < ( 30.5 )) {
+      yPosBlack = 745;
+      vyBlack = -18;
+    }
+    if ((DeltaX3 * DeltaX3 + DeltaY3 * DeltaY3) < ( 30.5 )) {
+      yPosBlack = 645;
+      vyBlack = -18;
+    }
+    if ((DeltaX4 * DeltaX4 + DeltaY4 * DeltaY4) < ( 30.5 )) {
+      yPosBlack = 495;
+      vyBlack = -18;
+    }
+  }
+  void blackAttack() { //attacken
+    if ((charSwitch) && (attackBlack)) {
+      currentFrame = (currentFrame+1) % 8;  // Use % to cycle through frames //attack animation
+      image(charBlackAttack[currentFrame], xPosBlack, yPosBlack, 59, 61);
+      attackzBlack += 1;
+      //print(testo);
+      if (attackzBlack == 4) {
+        attackBlack = false;
+        attackzBlack = 0;
+      }
+    }
+  }
+}
