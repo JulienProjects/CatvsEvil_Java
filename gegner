@@ -1,0 +1,248 @@
+//____________________________________________________________________________________________________________________________________GEGNER
+class gegner {
+  gegner() {
+  }
+  void animation(int geg) {
+    if ((whitestage1) && (blackstage1)) {
+      if (geg == 0) {
+        if (geg5) {
+          if ((zaehler < 20) && (shotgeg6 == true)) {
+            image(shotenemy, gegxPos4, gegyPos4, 62, 60);   //shot bild anzeigen
+          } else {
+            tzcurrentFrame = (tzcurrentFrame+1) % 8;  // Use % to cycle through frames
+            image(enemy[tzcurrentFrame], gegxPos4, gegyPos4, 62, 60); //enemy animation
+          }
+          float xDiff = xPosWhite - 1135;     //(xPosWhite +20)
+          float yDiff = yPosWhite - 685;    //(xPosWhite + 20)
+          double distance = sqrt(sq(xDiff) + sq(yDiff) );
+          //ellipse(1110,685,10,10);
+          //println(distance);
+          if ((distance < (160 / 2)) && ((attackWhite == true))) {   //collider nahkampf
+            geg5 = false;
+            //print(geg5);
+            shotgeg6 = false;
+            image(hitenemy, gegxPos4, gegyPos4, 62, 60);
+            zaehler = 0;
+            //print("coll");
+          }
+          if ((yPosWhite > 650) && (yPosWhite < 670) && (geg5) && (balken6)) { //enemy shot
+            shotgeg6 = true;
+            //print("test");
+          }
+          if ((shotgeg6) && (geg5)) {
+            //fill(#872E2E);
+            //ellipse(425 - zaehler,690,10,10);
+            image (bullet, 1140 - zaehler, 685, 40, 13); //bullet bild anzeigen
+            zaehler += 8;
+            //ellipse(xPosWhite + 15,yPosWhite + 30,5,5);
+            //ellipse((1140-zaehler) + 18,685 + 7,5,5);
+            float xDiff2 = (xPosWhite + 15) - (1140 - zaehler) + 18;     //(xPosWhite +20)
+            float yDiff2 = (yPosWhite + 30) - 685 + 7;    //(xPosWhite + 20)
+            double distance2 = sqrt(sq(xDiff2) + sq(yDiff2) );
+            //println(distance2);
+            if (distance2 < (70 / 2)) {   //bullet - spieler collider
+              isDead = true;  
+              zaehler = 9999;
+            }
+            if (zaehler > 1175) { //bullet reset 
+              shotgeg6 = false;
+              zaehler = 0;
+            }
+          }
+        }
+      }
+      if (geg == 1) { //580 250
+        if (geg6) {
+          if ((zaehler < 20) && (shotgeg5 == true)) {
+            image(shotenemy, gegxPos5, gegyPos5, 62, 60);
+          } else {
+            tzcurrentFrame = (tzcurrentFrame+1) % 8;  // Use % to cycle through frames
+            image(enemy[tzcurrentFrame], gegxPos5, gegyPos5, 62, 60);
+          }
+          float xDiff = xPosBlack - 600;     //(xPosWhite +20)
+          float yDiff = yPosBlack - 275;    //(xPosWhite + 20)
+          double distance = sqrt(sq(xDiff) + sq(yDiff) );
+          //ellipse(600,275,10,10);
+          //println(distance);
+          if ((distance < (160 / 2)) && ((attackBlack == true))) {
+            geg6 = false;
+            //print(geg5);
+            shotgeg5 = false;
+            image(hitenemy, gegxPos5, gegyPos5, 62, 60);
+            zaehler = 0;
+            //print("coll");
+          }
+          if ((yPosBlack > 230) && (yPosBlack < 270) && (geg6) && (balken5)) {
+            shotgeg5 = true;
+            //print("test");
+          }
+          if ((shotgeg5) && (geg6)) {
+            //fill(#872E2E);
+            //ellipse(425 - zaehler,690,10,10);
+            image (bullet, 580 - zaehler, 275, 40, 13);
+            zaehler += 8;
+            //ellipse(xPosWhite + 15,yPosWhite + 30,5,5);
+            //ellipse((1140-zaehler) + 18,685 + 7,5,5);
+            float xDiff2 = (xPosBlack + 15) - (580 - zaehler) + 18;     //(xPosWhite +20)
+            float yDiff2 = (yPosBlack + 30) - 275 + 7;    //(xPosWhite + 20)
+            double distance2 = sqrt(sq(xDiff2) + sq(yDiff2) );
+            //println(distance2);
+            if (distance2 < (70 / 2)) {
+              isDeadBlack = true;
+              zaehler = 9999;
+            }
+            if (zaehler > 585) {
+              shotgeg5 = false;
+              zaehler = 0;
+            }
+          }
+        }
+      }
+    } else {
+      if (geg == 0) {
+        //print("tet");
+        //ellipse(425,690,50,50);
+        if (geg1) {
+          if ((zaehler < 20) && (shotgeg1 == true)) {
+            image(shotenemy, gegxPos, gegyPos, 62, 60);
+          } else {
+            tzcurrentFrame = (tzcurrentFrame+1) % 8;  // Use % to cycle through frames
+            image(enemy[tzcurrentFrame], gegxPos, gegyPos, 62, 60);
+          }
+          float xDiff = xPosWhite- 425;     //(xPosWhite +20)
+          float yDiff = yPosWhite - 690;    //(xPosWhite + 20)
+          double distance = sqrt(sq(xDiff) + sq(yDiff) );
+          //println(distance);
+          if ((distance < (150 / 2)) && ((attackWhite == true))) {
+            geg1 = false;
+            shotgeg1 = false;
+            image(hitenemy, gegxPos, gegyPos, 62, 60);
+            zaehler = 0;
+            //print("coll");
+          }
+          if ((yPosWhite > 670) && (yPosWhite < 690) & (geg1)) {
+            shotgeg1 = true;
+            //print("test");
+          }
+          if (shotgeg1) {
+            //fill(#872E2E);
+            //ellipse(425 - zaehler,690,10,10);
+            image (bullet, 370 - zaehler, 690, 40, 13);
+            zaehler += 8;
+            //ellipse(xPosWhite + 15,yPosWhite + 30,5,5);
+            //ellipse((370-zaehler) + 18,690 + 7,5,5);
+            float xDiff2 = (xPosWhite + 15) - (425 - zaehler) + 18;     //(xPosWhite +20)
+            float yDiff2 = (yPosWhite + 30) - 690 + 7;    //(xPosWhite + 20)
+            double distance2 = sqrt(sq(xDiff2) + sq(yDiff2) );
+            //println(distance2);
+            if (distance2 < (80 / 2)) {
+              isDead = true;
+              zaehler = 9999;
+            }
+            if (zaehler > 430) {
+              shotgeg1 = false;
+              zaehler = 0;
+            }
+          }
+        }
+      }
+      if (geg == 1) {
+        //print("tet");
+        //ellipse(900,710,50,50);
+        if (geg2) {
+          if ((zaehler < 20) && (shotgeg2 == true)) {
+            image(shotenemy, gegxPos2, gegyPos2, 62, 60);
+          } else {
+            tcurrentFrame = (tcurrentFrame+1) % 8;  // Use % to cycle through frames
+            image(enemy[tcurrentFrame], gegxPos2, gegyPos2, 62, 60);
+          }
+          float xDiff = xPosWhite- 900;     //(xPosWhite +20)
+          float yDiff = yPosWhite - 710;    //(xPosWhite + 20)
+          double distance = sqrt(sq(xDiff) + sq(yDiff) );
+          //println(distance);
+          if ((distance < (150 / 2)) && ((attackWhite == true))) {
+            geg2 = false;
+            shotgeg2 = false;
+            image(hitenemy, gegxPos2, gegyPos2, 62, 60);
+            zaehler = 0;
+            //print("coll");
+          }
+          if ((yPosWhite > 690) && (yPosWhite < 710) && (balken2) && (geg2)) {
+            shotgeg2 = true;
+            //zaehler = 0;
+            //print("test");
+          }
+          if (shotgeg2) {
+            //fill(#872E2E);
+            image (bullet, 870 - zaehler, 700, 40, 13);
+            zaehler += 8;
+            //ellipse(xPosWhite + 15,yPosWhite + 30,5,5);
+            //ellipse((870-zaehler) + 15,690 + 15,5,5);
+            float xDiff2 = (xPosWhite + 15) - (870 - (zaehler + 15));     //(xPosWhite +20)
+            float yDiff2 = (yPosWhite + 30) - (690 + 15);    //(xPosWhite + 20)
+            double distance2 = sqrt(sq(xDiff2) + sq(yDiff2) );
+            //println(distance2);
+            if (distance2 < (70 / 2)) {
+              isDead = true;
+              zaehler = 9999;
+            }
+            if (zaehler > 880) {
+              shotgeg2 = false;
+              zaehler = 0;
+            }
+          }
+        }
+      }
+      if (geg == 2) {
+        //print("tet");
+        //ellipse(935,240,50,50);
+        if (geg3) {
+          if ((zaehler < 20) && (shotgeg3 == true)) {
+            image(shotenemy, gegxPos3, gegyPos3, 62, 60);
+          } else {
+            txcurrentFrame = (txcurrentFrame+1) % 8;  // Use % to cycle through frames
+            image(enemy[txcurrentFrame], gegxPos3, gegyPos3, 62, 60);
+          }
+          float xDiff = xPosBlack- 935;     //(xPosWhite +20)
+          float yDiff = yPosBlack - 240;    //(xPosWhite + 20)
+          double distance = sqrt(sq(xDiff) + sq(yDiff) );
+          //println(distance);
+          if ((distance < (150 / 2)) && ((attackBlack))) {
+            geg3 = false;
+            shotgeg3 = false;
+            image(hitenemy, gegxPos3, gegyPos3, 62, 60);
+            zaehler = 0;
+            //print("coll");
+          }
+          if ((yPosBlack > 200) && (yPosBlack < 240) && (balken1) && (geg3)) {
+            shotgeg3 = true;
+            //zaehler = 0;
+            //print("test");
+          }
+          if (shotgeg3) {
+            //println(shotgeg3);
+            //fill(#872E2E);
+            image (bullet, 930 - zaehler, 240, 40, 13);
+            zaehler += 10;
+            //fill(#007800);
+            //ellipse(xPosBlack + 15,yPosBlack + 30,5,5);
+            //ellipse((940-zaehler) + 15,240 + 8,5,5);
+            float xDiff2 = (xPosBlack + 15) - (940 - (zaehler + 15));     //(xPosWhite +20)
+            float yDiff2 = (yPosBlack + 30) - (240 + 8);    //(xPosWhite + 20)
+            double distance2 = sqrt(sq(xDiff2) + sq(yDiff2) );
+            println(distance2);
+            if ((distance2 < (70 / 2)) && (zaehler != 0)) {
+              isDeadBlack = true;
+              print("death");
+              zaehler = 9999;
+            }
+            if (zaehler > 945) {
+              shotgeg3 = false;
+              zaehler = 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
