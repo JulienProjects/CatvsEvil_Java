@@ -1,0 +1,393 @@
+//_________________________________________________________________________________________________________________________\*/________WHITE
+class catWhite {
+  catWhite(float p_xPos, float p_yPos, float p_g) { //konstruktor charWhite
+    xPosWhite = p_xPos;
+    yPosWhite = p_yPos; 
+    g         = p_g;
+  }
+  void displayWhite() {
+    xPosWhite += vxWhite; //gravition
+    vyWhite += gravity;
+    yPosWhite += vyWhite;
+    if ((sh_turningRight) && (charSwitch == false)  && (attackWhite == false) && (isDead == false) && (happy) ) { //right animation
+      xPosWhite = xPosWhite + g;
+      if (collideWhite) {
+        currentFrame = (currentFrame+1) % numFrames;  // Use % to cycle through frames
+        image(charWhiteRight[currentFrame], xPosWhite, yPosWhite, 45, 61);
+      } else {
+        image(jumpWhiteRight, xPosWhite, yPosWhite, 45, 61);
+      }
+    } else if ((sh_turningLeft) && (charSwitch == false) && (attackWhite == false) && (isDead == false) && (happy)  ) { //leftanimation
+      xPosWhite = xPosWhite - g;
+      if (collideWhite) {
+        currentFrame = (currentFrame+1) % numFrames;  // Use % to cycle through frames
+        image(charWhiteLeft[currentFrame], xPosWhite, yPosWhite, 45, 61);
+      } else {
+        image(jumpWhiteLeft, xPosWhite, yPosWhite, 45, 61);
+      }
+    } else {
+      if ((collideWhite) && (attackWhite == false) && (isDead == false) && (happy) ) { //steh animation
+        currentFrame = (currentFrame+1) % numFrames;  // Use % to cycle through frames
+        image(charWhite[currentFrame], xPosWhite, yPosWhite, 30, 61);
+      } else {
+        if ((attackWhite == false) && (isDead == false) && (happy) ) { //jump animation
+          image(jumpWhiteRight, xPosWhite, yPosWhite, 45, 61);
+        }
+      }
+    }
+  }
+  void collideWhite() { //stage1
+    int recX = 0;
+    int recY = 652;
+    float DeltaX = (xPosWhite + 22) - max(recX, min((xPosWhite + 22), recX + 200));
+    float DeltaY = (yPosWhite + 67) - max(recY, min((yPosWhite + 67), recY + 50));
+    int rec2X = 220;
+    int rec2Y = 765;
+    float Delta2X = (xPosWhite + 22) - max(rec2X, min((xPosWhite + 22), rec2X + 100));
+    float Delta2Y = (yPosWhite + 67) - max(rec2Y, min((yPosWhite + 67), rec2Y + 10));
+    int rec3X = 370;
+    int rec3Y = 720;
+    float Delta3X = (xPosWhite + 22) - max(rec3X, min((xPosWhite + 22), rec3X + 100));
+    float Delta3Y = (yPosWhite + 67) - max(rec3Y, min((yPosWhite + 67), rec3Y + 10));
+    int rec4X = 520;
+    int rec4Y = 755;
+    float Delta4X = (xPosWhite + 22) - max(rec4X, min((xPosWhite + 22), rec4X + 100));
+    float Delta4Y = (yPosWhite + 67) - max(rec4Y, min((yPosWhite + 67), rec4Y + 10));
+    int rec5X = 655;
+    int rec5Y = 779;
+    float Delta5X = (xPosWhite + 22) - max(rec5X, min((xPosWhite + 22), rec5X + 100));
+    float Delta5Y = (yPosWhite + 67) - max(rec5Y, min((yPosWhite + 67), rec5Y + 10));
+    int rec6X = 800;
+    int rec6Y = 740;
+    float Delta6X = (xPosWhite + 22) - max(rec6X, min((xPosWhite + 22), rec6X + 200));
+    float Delta6Y = (yPosWhite + 67) - max(rec6Y, min((yPosWhite + 67), rec6Y + 10));
+    int rec7X = 1050;
+    int rec7Y = 730;
+    float Delta7X = (xPosWhite + 22) - max(rec7X, min((xPosWhite + 22), rec7X + 100));
+    float Delta7Y = (yPosWhite + 67) - max(rec7Y, min((yPosWhite + 67), rec7Y + 10));
+    int rec8X = 1190;
+    int rec8Y = 690;
+    float Delta8X = (xPosWhite + 22) - max(rec8X, min((xPosWhite + 22), rec8X + 100));
+    float Delta8Y = (yPosWhite + 67) - max(rec8Y, min((yPosWhite + 67), rec8Y + 10));
+    int rec9X = 1320;
+    int rec9Y = 660;
+    float Delta9X = (xPosWhite + 22) - max(rec9X, min((xPosWhite + 22), rec9X + 95));
+    float Delta9Y = (yPosWhite + 67) - max(rec9Y, min((yPosWhite + 67), rec9Y + 10));
+    int rec10X = 1420;
+    int rec10Y = 652;
+    float Delta10X = (xPosWhite + 22) - max(rec10X, min((xPosWhite + 22), rec10X + 200));
+    float Delta10Y = (yPosWhite + 67) - max(rec10Y, min((yPosWhite + 67), rec10Y + 50));
+    if (yPosWhite > (displayHeight - 60)) {
+      isDead = true;
+      //collideWhite = true;
+      //vyWhite = 0;
+      //yPosWhite = displayHeight - 120 / 2;
+    }
+    //platt white 
+    else if ((DeltaX * DeltaX + DeltaY * DeltaY) < ( 1 )) {
+      collideWhite = true;
+      yPosWhite = 590;
+      vyWhite = 0;
+    }
+    //1
+    else if ((Delta2X * Delta2X + Delta2Y * Delta2Y) < ( 1 )) {
+      collideWhite = true;
+      yPosWhite = 705;
+      vyWhite = 0;
+    }
+    //2
+    else if ((Delta3X * Delta3X + Delta3Y * Delta3Y) < ( 1 )) {
+      collideWhite = true;
+      yPosWhite = 658;
+      vyWhite = 0;
+    }
+    //3
+    else if ((Delta4X * Delta4X + Delta4Y * Delta4Y) < ( 1 )) {
+      collideWhite = true;
+      yPosWhite = 693;
+      vyWhite = 0;
+    }
+    //4
+    else if ((Delta5X * Delta5X + Delta5Y * Delta5Y) < ( 1 )) {
+      collideWhite = true;
+      yPosWhite = 717;
+      vyWhite = 0;
+    }
+    //5
+    else if ((Delta6X * Delta6X + Delta6Y * Delta6Y) < ( 1 )) {
+      collideWhite = true;
+      yPosWhite = 678;
+      vyWhite = 0;
+    }
+    //6
+    else if ((Delta7X * Delta7X + Delta7Y * Delta7Y) < ( 1 )) {
+      collideWhite = true;
+      yPosWhite = 668;
+      vyWhite = 0;
+    }
+    //7
+    else if ((Delta8X * Delta8X + Delta8Y * Delta8Y) < ( 1 )) {
+      collideWhite = true;
+      yPosWhite = 628;
+      vyWhite = 0;
+    }
+    //8
+    else if ((Delta9X * Delta9X + Delta9Y * Delta9Y) < ( 1 )) {
+      collideWhite = true;
+      yPosWhite = 598;
+      vyWhite = 0;
+    }
+    //platform white rechts
+    else if ((Delta10X * Delta10X + Delta10Y * Delta10Y) < ( 1 )) {
+      collideWhite = true;
+      yPosWhite = 590;
+      vyWhite = 0;
+      fill(#005F00);
+      rect(1530, 651, 200, 40);  //(1530,651,200,35);
+      whitestage1 = true;
+    } else {
+      collideWhite = false;
+      whitestage1 = false;
+    }
+    if (xPosWhite < 0 + 5) {
+      xPosWhite = 0 + 5;
+    }
+    if (xPosWhite > (displayWidth  - 50)) {
+      //collideWhite = true;
+      xPosWhite = displayWidth - 100 / 2;
+      //isDead = true;                                   //_----------------------------------------------------------------------einfügen zum sterben white char
+    }
+    //ellipse(1370,630,1,1);
+    float xDiff = (xPosWhite +20) - 710;
+    float yDiff = (yPosWhite + 20) - 750;  
+    double distance = sqrt(sq(xDiff) + sq(yDiff) );
+
+    float xDiff2 = (xPosWhite +20) - 1370; //1370
+    float yDiff2 = (yPosWhite + 20) - 630;  //630
+    double distance2 = sqrt(sq(xDiff2) + sq(yDiff2) );
+    if ( distance < (60 / 2)) {
+      balken1 = true;
+      schluessel1 = true;
+      //print("tes");
+    }
+    if ( distance2 < (60 / 2)) {
+      balken4 = true;
+      schluessel4 = true;
+      //print("tes");
+    }
+    if ((xPosWhite > 775 - 50) && (schluessel2 == false)) {
+      xPosWhite = 775 - 50;
+    }
+    if ((xPosWhite > 1025 - 50) && (schluessel3 == false)) {
+      xPosWhite = 1025 - 50;
+    }
+    if (isDead) { 
+      currentFrame = (currentFrame+1) % 16; 
+      image(charWhiteDie[currentFrame], xPosWhite, yPosWhite, 78, 61);
+      dieWhite += 1;
+      if (dieWhite == 5) {
+        xDeath = xPosWhite;
+        yDeath = yPosWhite;
+        vyWhite = 0;
+        deathsoundChar.play();  //spawn punk white 30 550
+        isDead = false;          // 30 90
+        xPosWhite = 30;
+        yPosWhite = 520;  //______________________________________________________________________SPAWN PUNKT ÄNDERN!!!!!!!!!
+        xPosBlack = 30;
+        yPosBlack = 90;
+        dieWhite = 0;
+        deathCounter++;
+        print(deathCounter);
+      }
+    }
+  }
+  void whiteCollideStage2() { //stage2
+    int recX = 0;
+    int recY = 652;
+    float DeltaX = (xPosWhite + 22) - max(recX, min((xPosWhite + 22), recX + 200));
+    float DeltaY = (yPosWhite + 67) - max(recY, min((yPosWhite + 67), recY + 50));
+    int recX2 = 240;
+    int recY2 = 720;
+    float DeltaX2 = (xPosWhite + 22) - max(recX2, min((xPosWhite + 22), recX2 + 115));
+    float DeltaY2 = (yPosWhite + 67) - max(recY2, min((yPosWhite + 67), recY2 + 10));
+    int recX3 = 400;
+    int recY3 = 820;
+    float DeltaX3 = (xPosWhite + 22) - max(recX3, min((xPosWhite + 22), recX3 + 115));
+    float DeltaY3 = (yPosWhite + 67) - max(recY3, min((yPosWhite + 67), recY3 + 10));
+    int recX4 = 630;
+    int recY4 = 762;
+    float DeltaX4 = (xPosWhite + 22) - max(recX4, min((xPosWhite + 22), recX4 + 115));
+    float DeltaY4 = (yPosWhite + 67) - max(recY4, min((yPosWhite + 67), recY4 + 10));
+    int recX5 = 850;
+    int recY5 = 825;
+    float DeltaX5 = (xPosWhite + 22) - max(recX5, min((xPosWhite + 22), recX5 + 115));
+    float DeltaY5 = (yPosWhite + 67) - max(recY5, min((yPosWhite + 67), recY5 + 10));
+    int recX6 = 1010;
+    int recY6 = 712;
+    float DeltaX6 = (xPosWhite + 22) - max(recX6, min((xPosWhite + 22), recX6 + 210));
+    float DeltaY6 = (yPosWhite + 67) - max(recY6, min((yPosWhite + 67), recY6 + 10));
+    int recX7 = 1265;
+    int recY7 = 800;
+    float DeltaX7 = (xPosWhite + 22) - max(recX7, min((xPosWhite + 22), recX7 + 115));
+    float DeltaY7 = (yPosWhite + 67) - max(recY7, min((yPosWhite + 67), recY7 + 10));
+    int rec10X = 1420;
+    int rec10Y = 652;
+    float Delta10X = (xPosWhite + 22) - max(rec10X, min((xPosWhite + 22), rec10X + 200));
+    float Delta10Y = (yPosWhite + 67) - max(rec10Y, min((yPosWhite + 67), rec10Y + 50));
+    //ellipse(1265 + 115,825,50,50);
+    if (yPosWhite > (displayHeight - 60)) {
+      isDead = true;
+      //collideWhite = true;
+      //vyWhite = 0;
+      //yPosWhite = displayHeight - 120 / 2;
+    }
+    //platt white 
+    else if ((DeltaX * DeltaX + DeltaY * DeltaY) < ( 1 )) {
+      collideWhite = true;
+      yPosWhite = 590;
+      vyWhite = 0;
+    } else if ((DeltaX2 * DeltaX2 + DeltaY2 * DeltaY2) < ( 1 )) {
+      collideWhite = true;
+      yPosWhite = 652;
+      vyWhite = 0;
+    } else if ((DeltaX3 * DeltaX3 + DeltaY3 * DeltaY3) < ( 1 )) {
+      collideWhite = true;
+      yPosWhite = 752;
+      vyWhite = -17;
+    } else if ((DeltaX4 * DeltaX4 + DeltaY4 * DeltaY4) < ( 1 )) {
+      collideWhite = true;
+      yPosWhite = 703;
+      vyWhite = 0;
+    } else if ((DeltaX5 * DeltaX5 + DeltaY5 * DeltaY5) < ( 1 )) {
+      collideWhite = true;
+      yPosWhite = 758;
+      vyWhite = -17;
+    } else if ((DeltaX6 * DeltaX6 + DeltaY6 * DeltaY6) < ( 1 )) {
+      collideWhite = true;
+      yPosWhite = 653;
+      vyWhite = 0;
+    } else if ((DeltaX7 * DeltaX7 + DeltaY7 * DeltaY7) < ( 1 )) {
+      collideWhite = true;
+      yPosWhite = 738;
+      vyWhite = -18;
+    } else if ((Delta10X * Delta10X + Delta10Y * Delta10Y) < ( 1 )) {
+      collideWhite = true;
+      yPosWhite = 590;
+      vyWhite = 0;
+      fill(#005F00);
+      rect(1530, 651, 200, 40);  //(1530,651,200,35);
+      whitestage2 = true;
+    } else {
+      collideWhite = false;
+      whitestage2 = false;
+    }
+    //println((DeltaX7 * DeltaX7 + DeltaY7 * DeltaY7));
+    if (xPosWhite < 0 + 5) {
+      xPosWhite = 0 + 5;
+    }
+    if (xPosWhite > (displayWidth  - 50)) {
+      //collideWhite = true;
+      xPosWhite = displayWidth - 100 / 2;
+      //isDead = true;                                   //_----------------------------------------------------------------------einfügen zum sterben white char
+    }
+    if ((xPosWhite > 985 - 50) && (schluessel6 == false)) {
+      xPosWhite = 985 - 50;
+    }
+    if ((xPosWhite > 1240 - 50) && (schluessel7 == false)) {
+      xPosWhite = 1240 - 50;
+    }
+    float xDiff = (xPosWhite +20) - 540;
+    float yDiff = (yPosWhite + 20) - 670;  
+    double distance = sqrt(sq(xDiff) + sq(yDiff) );
+    if ( distance < (60 / 2)) {
+      balken5 = true;
+      schluessel5 = true;
+      //print("tes");
+    }
+    if (isDead) { //wenn tot..
+      currentFrame = (currentFrame+1) % 16; 
+      image(charWhiteDie[currentFrame], xPosWhite, yPosWhite, 78, 61); //death animation
+      dieWhite += 1;
+      if (dieWhite == 5) {
+        xDeath = xPosWhite;
+        yDeath = yPosWhite;
+        vyWhite = 0;
+        deathsoundChar.play();  //spawn punk white 30 550
+        isDead = false;          // 30 90
+        xPosWhite = 30;
+        yPosWhite = 520;  //______________________________________________________________________SPAWN PUNKT ÄNDERN!!!!!!!!!
+        xPosBlack = 30;
+        yPosBlack = 90;
+        dieWhite = 0;
+        deathCounter++;
+        print(deathCounter);
+      }
+    }
+  }
+  void whiteCollideStage3() { //stage3 (boss)
+    int recX = 1330; 
+    int recY = 960;
+    float DeltaX = (xPosWhite + 22) - max(recX, min((xPosWhite + 22), recX + 100));
+    float DeltaY = (yPosWhite + 67) - max(recY, min((yPosWhite + 67), recY + 10));
+    int recX2 = 1150;
+    int recY2 = 810;
+    float DeltaX2 = (xPosWhite + 22) - max(recX2, min((xPosWhite + 22), recX2 + 100));
+    float DeltaY2 = (yPosWhite + 67) - max(recY2, min((yPosWhite + 67), recY2 + 10));
+    int recX3 = 1400;
+    int recY3 = 710;
+    float DeltaX3 = (xPosWhite + 22) - max(recX3, min((xPosWhite + 22), recX3 + 100));
+    float DeltaY3 = (yPosWhite + 67) - max(recY3, min((yPosWhite + 67), recY3 + 10));
+    int recX4 = 1200;
+    int recY4 = 560;
+    float DeltaX4 = (xPosWhite + 22) - max(recX4, min((xPosWhite + 22), recX4 + 100));
+    float DeltaY4 = (yPosWhite + 67) - max(recY4, min((yPosWhite + 67), recY4 + 10));
+    int recX5 = 960;
+    int recY5 = 455;
+    float DeltaX5 = (xPosWhite + 22) - max(recX5, min((xPosWhite + 22), recX5 + 150));
+    float DeltaY5 = (yPosWhite + 67) - max(recY5, min((yPosWhite + 67), recY5 + 10));
+    if (xPosWhite > (displayWidth  - 50)) {
+      //collideBlack = true;
+      xPosWhite = displayWidth - 100 / 2;
+    } else if (yPosWhite > (displayHeight - 80)) {
+      yPosWhite = displayHeight - 80;
+      collideWhite = true;
+      vyWhite = 0;
+    } else if ((DeltaX5 * DeltaX5 + DeltaY5 * DeltaY5) < ( 1 )) {
+      yPosWhite = 390;
+      collideWhite = true;
+      vyWhite = 0;
+    } else {
+      collideWhite = false;
+    }
+    if (xPosWhite < (displayWidth / 2) + 45) {
+      xPosWhite = (displayWidth / 2) + 45;
+    }
+    if ((DeltaX * DeltaX + DeltaY * DeltaY) < ( 30.5 )) {
+      yPosWhite = 895;
+      vyWhite = -18;
+    }
+    if ((DeltaX2 * DeltaX2 + DeltaY2 * DeltaY2) < ( 30.5 )) {
+      yPosWhite = 745;
+      vyWhite = -18;
+    }
+    if ((DeltaX3 * DeltaX3 + DeltaY3 * DeltaY3) < ( 30.5 )) {
+      yPosWhite = 645;
+      vyWhite = -18;
+    }
+    if ((DeltaX4 * DeltaX4 + DeltaY4 * DeltaY4) < ( 30.5 )) {
+      yPosWhite = 495;
+      vyWhite = -18;
+    }
+  }
+  void whiteAttack() { //attack
+    if ((charSwitch == false)&& (attackWhite) && (isDead == false) ) {
+      currentFrame = (currentFrame+1) % 8;  // Use % to cycle through frames
+      image(charWhiteAttack[currentFrame], xPosWhite, yPosWhite, 59, 61); //attack animation
+      attackzWhite += 1;
+      if (attackzWhite == 4) {
+        attackWhite = false;
+        attackzWhite = 0;
+      }
+    }
+  }
+}
