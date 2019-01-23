@@ -1,0 +1,112 @@
+//____________________________________________________________________________________________________________________________________MENÜ
+void menu() {
+  if (musicmenue == 0) {
+    music.loop();
+    music.setLoopPoints(59070, 198500);
+    musicmenue = 1;
+  }
+  if (how) {
+    image (howtoplay, 0, 0);  //howtoplay bild anzeigen
+    int recX = 41;
+    int recY = 800;
+
+    //rect(41,800 ,310,120);
+    float DeltaX = mouseX - max(recX, min(mouseX, recX + 310));      //backbutton collider
+    float DeltaY = mouseY - max(recY, min(mouseY, recY + 120));
+    if ((DeltaX * DeltaX + DeltaY * DeltaY) < ( 1 * 1)) {
+      cursor(HAND);
+      backover = true;
+    } else {
+      cursor(ARROW);
+      backover = false;
+    }
+  } else if (story) {
+    image(storypage, 0, 0);
+    int recX = 41;
+    int recY = 800;
+
+    //rect(41,800 ,310,120);
+    float DeltaX = mouseX - max(recX, min(mouseX, recX + 310));     //backbutton collider
+    float DeltaY = mouseY - max(recY, min(mouseY, recY + 120));
+    if ((DeltaX * DeltaX + DeltaY * DeltaY) < ( 1 * 1)) {
+      cursor(HAND);
+      backover = true;
+    } else {
+      cursor(ARROW);
+      backover = false;
+    }
+  } else {
+    //randomSound = (int)random(1,200);
+    //println(randomSound);
+    // if(randomSound == 10){
+    //  raven.play();
+    //}
+    currentFrame = (currentFrame+1) % numFrames;  
+    image (menue, xBild, 0);
+    image (menue, xBild+menue.width, 0);           //bild im Hintergrund animation
+    xBild -= 7;
+    if (xBild+menue.width < 0) {
+      xBild = 0;
+    }
+    String[] lines = loadStrings("score.txt");           //letzter score aus score.txt anzeigen lassen
+    for (int i = 0; i < lines.length; i++) {
+      textSize(50);
+      fill(0);
+      if (i==2) {
+        text(lines[2], 450, 175);
+      } else {
+        text(lines[i], 200 +( i * 90), 175);
+      }
+    }
+    image(charWhiteRight[currentFrame], 1200, displayHeight - 240, 117, 160); //white char lauf animation
+    image(charBlackRight[currentFrame], 1100, displayHeight - 233, 117, 160);  //black char lauf animation  
+    //image(playbutton,0,0);
+    //image(howbutton,0,0);
+    //image(exitbutton,0,0);
+    image(hauptmenue, 0, 0);
+    int recX = 120;
+    int recY = 210;
+    //rect(765,435,470,150);
+    int rec2X = 143;
+    int rec2Y = 435;
+    int rec3X = 143;
+    int rec3Y = 650;
+    int rec4X = 765;
+    int rec4Y = 435;
+    float DeltaX = mouseX - max(recX, min(mouseX, recX + 610));
+    float DeltaY = mouseY - max(recY, min(mouseY, recY + 160));
+    float Delta2X = mouseX - max(rec2X, min(mouseX, rec2X + 570));
+    float Delta2Y = mouseY - max(rec2Y, min(mouseY, rec2Y + 160));
+    float Delta3X = mouseX - max(rec3X, min(mouseX, rec3X + 570));      //menu button collider
+    float Delta3Y = mouseY - max(rec3Y, min(mouseY, rec3Y + 160)); 
+    float Delta4X = mouseX - max(rec4X, min(mouseX, rec4X + 470));
+    float Delta4Y = mouseY - max(rec4Y, min(mouseY, rec4Y + 150));
+    if ((DeltaX * DeltaX + DeltaY * DeltaY) < ( 1 * 1)) { //startbutton
+      cursor(HAND);
+      startover = true;
+    } else {
+      startover = false;
+    }
+    if ((Delta4X * Delta4X + Delta4Y * Delta4Y) < ( 1 * 1)) { //storybutton
+      cursor(HAND);
+      storyover = true;
+    } else {
+      storyover = false;
+    }
+    if ((Delta2X * Delta2X + Delta2Y * Delta2Y) < ( 1 * 1)) { //howbutton
+      cursor(HAND);
+      howover = true;
+    } else {
+      howover = false;
+    }
+    if ((Delta3X * Delta3X + Delta3Y * Delta3Y) < ( 1 * 1)) { //exitbutton
+      cursor(HAND);
+      exit = true;
+    } else {
+      exit = false;
+      if ((startover == false) && (howover == false) && (exitover == false)&& (storyover == false)) { //cursor arrow
+        cursor(ARROW);
+      }
+    }
+  }
+}
