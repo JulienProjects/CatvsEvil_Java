@@ -1,0 +1,32 @@
+//higscore tabelle
+void highscore() {
+  if (highscore == false) {
+    int recX = 41;
+    int recY = 800;
+    float DeltaX = mouseX - max(recX, min(mouseX, recX + 310));
+    float DeltaY = mouseY - max(recY, min(mouseY, recY + 120));    //highscorebutton collider
+    if ((DeltaX * DeltaX + DeltaY * DeltaY) < ( 1 * 1)) {
+      cursor(HAND);
+      highscoreover = true;
+    } else {
+      cursor(ARROW);
+      highscoreover = false;
+    }
+  }
+  if (highscore) {
+    image (scoretabelle, 0, 0);     //score bild anzeigen
+    text(nf(scrnMins, 2) + " : " + nf(scrnSecs, 2), 760, 520);  //score in tabelle anzeigen
+    text(deathCounter, 1050, 520);
+    int recX = 41;
+    int recY = 800;
+    float DeltaX = mouseX - max(recX, min(mouseX, recX + 310));  //backbutton collider
+    float DeltaY = mouseY - max(recY, min(mouseY, recY + 120));
+    if ((DeltaX * DeltaX + DeltaY * DeltaY) < ( 1 * 1)) {
+      cursor(HAND);
+      backover = true;
+    } else {
+      cursor(ARROW);
+      backover = false;
+    }
+  }
+}
