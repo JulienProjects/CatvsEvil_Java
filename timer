@@ -1,0 +1,24 @@
+//_____________________________________________________________________________________________________________________________________TIMER
+void timer() {
+  //println(testo);
+  if ((isWin == false) && (bossLeben != 0)) {
+    actualSecs = (millis()-t+c)/1000; 
+    actualMins = (millis()-t+c)/1000 / 60;            //Zeit rechnung
+    scrnSecs = actualSecs - restartSecs; 
+    scrnMins = actualMins - restartMins; 
+    if (actualSecs % 60 == 0) { 
+      restartSecs = actualSecs;   
+      scrnSecs = startSec;
+    }
+  }
+  // print(millis());
+  //println(scrnSecs); 
+  //println(scrnMins);
+  textAlign(CENTER);
+  textSize(26);
+  fill(0);
+  text(nf(scrnMins, 2) + " : " + nf(scrnSecs, 2), 790, 50); //timer anzeigen lassen  
+  text(deathCounter, 480, 50);                              //deatchcounter anzeigen lassen
+  //t=millis();
+  //println(zeitRechnung);
+}
