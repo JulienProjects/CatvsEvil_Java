@@ -1,0 +1,516 @@
+//_______________________________________________________________________________________________VARIABLEN deklarieren - initialisieren
+int displayWidth = 1600;
+int displayHeight = 1000;
+float xPosWhite, yPosWhite, vxWhite;  //whitechar
+float vyWhite = -4;
+float xPosBlack, yPosBlack, vyBlack, vxBlack; //blackchar
+int numFrames = 12;  // Frames
+int currentFrame = 0;
+int tcurrentFrame = 0;
+int tzcurrentFrame = 0;
+int txcurrentFrame = 0;
+int timer;
+int t=0, c=0; //timer variablen
+int musicmenue = 0; //music apsielen menü
+String score;
+float gravity = 0.9;
+boolean charSwitch = false;   //false = white -- true = black
+int attackzBlack = 0;
+int attackzWhite = 0;
+int dieWhite = 0;
+int gegxPos = 400;
+int gegyPos = 665;
+int gegxPos2 = 875;
+int gegyPos2 = 685;
+int gegxPos3 = 910;
+int gegyPos3 = 215;
+int gegxPos4 = 1090;
+int gegyPos4 = 660;
+int gegxPos5 = 580;
+int gegyPos5 = 250;
+int zaehler = 0;
+int lachenzaehler = 0;
+boolean blachenzaehler = false;
+///////////////////////////////////////////////////////BOSS
+int bossLeben = 500;
+boolean bossHit = false;
+boolean bossZeit = true;
+boolean bossAuge = true;
+boolean attackBoss = false;
+float randomSound;    //raven sound random
+float xDeath = -200;
+int gegnerPosX, gegnerPosY, size;
+float yDeath = -200;
+int dieBlack = 0;
+int geg;
+int endzaehler;
+int xBild = -200;
+int deathCounter = 0;
+boolean play = false; /////////////////////////////////////////////////////////menü ja = false --- nein = true
+boolean how = false;
+boolean story = false;
+boolean exit = false;
+//float friction = 0.9;
+float g;
+boolean pause = false; //pause
+boolean mousepressed = false;
+boolean end = true;
+boolean highscore = false;
+boolean highscoreover = false;
+boolean happy = true;
+boolean isDead = false;
+boolean startover = false;
+boolean howover = false;
+boolean storyover = false;
+boolean backover = false;
+boolean exitover = false;
+boolean isDeadBlack = false;
+boolean collideWhite = false;
+boolean collideBlack = false;
+boolean balken1 = false;
+boolean schluessel1 = false;
+boolean balken2 = false;
+boolean schluessel2 = false;
+boolean balken3 = false;
+boolean schluessel3 = false;
+boolean balken4 = false;
+boolean schluessel4 = false;
+boolean balken5 = false;
+boolean schluessel5 = false;
+boolean balken6 = false;
+boolean schluessel6 = false;
+boolean balken7 = false;
+boolean schluessel7 = false;
+boolean geg1 = true;
+boolean geg2 = true;
+boolean geg3 = true;
+boolean geg4 = true;
+boolean geg5 = true;
+boolean geg6 = true;
+boolean shotgeg1 = false;
+boolean shotgeg2 = false;
+boolean shotgeg3= false;
+boolean shotgeg4 = false;
+boolean shotgeg5 = false;
+boolean shotgeg6 = false;
+boolean blackstage1 = true;   //stagecheck
+boolean whitestage1 = true;
+boolean blackstage2 = true;
+boolean whitestage2 = true;
+boolean stage_1 = false;       /////////////////////////////////////////Stage 1 start
+boolean stage2 = false;       /////////////////////////////////////////Stage 2 start
+boolean stage3 = false;      /////////////////////////////////////////Stage 3(boss) start
+//______________________________________________________________________________________________________________________[]___________BILDER
+PImage menue;
+PImage storypage;
+PImage hitenemy;
+PImage bullet;
+PImage win;
+PImage shotenemy;
+PImage hauptmenue;
+PImage stage1;
+PImage stage_2;
+PImage stage_3;  //boss stage
+PImage balken;
+PImage schluessel;
+//PImage playbutton;
+//PImage howbutton;
+//PImage exitbutton;
+PImage howtoplay;
+PImage[] charWhite = new PImage[numFrames];
+PImage[] charBlack = new PImage[numFrames];
+PImage[] charWhiteRight = new PImage[numFrames];
+PImage[] charWhiteLeft = new PImage[numFrames];
+PImage[] charWhiteAttack = new PImage[8];
+PImage[] enemy = new PImage[8];
+PImage[] charWhiteDie = new PImage[16];
+PImage jumpWhiteRight;
+PImage jumpWhiteLeft;
+PImage[] charBlackRight = new PImage[numFrames];
+PImage[] charBlackLeft = new PImage[numFrames];
+PImage[] charBlackAttack = new PImage[8];
+PImage[] charBlackDie = new PImage[16];
+PImage jumpBlackRight, jumpBlackLeft, endboss, endbossSpiegel, orb, happyweiss, happyschwarz, endbosslachen, endbosslachenspiegel, scoretabelle;
+//_________________________________________________________________________________________________________________________________________ Tastatur boolean
+boolean  sh_turningRight = false;
+boolean  sh_turningLeft = false;
+boolean  sh_jump = false;
+boolean attackWhite = false;
+boolean attackBlack = false;
+//_________________________________________________________________________________________________________________________________________Char White/Char Black/Gegner
+bossend bossEnd = new bossend();
+gegner[] gegner = new gegner[4];
+attackBoss[] attackboss = new attackBoss[100];
+catWhite  catwhite = new catWhite(30, 550, 6);                 //spawn punk white 30 550
+catBlack  catblack = new catBlack(30, 90, 6);                 // 30 90
+//_________________________________________________________________________________________________________________________________________SOUND
+import processing.sound.*;
+SoundFile deathsoundChar;
+SoundFile laugh, ending;      //sounds einbinden
+SoundFile jump;
+SoundFile bossSchrei;
+SoundFile bossDeath;
+import ddf.minim.*;                      // Library Minim By Damien Di Fede and Anderson Mills 
+AudioPlayer player;
+AudioPlayer music;
+AudioPlayer stagebackground;
+Minim minim;
+//_________________________________________________________________________________________________________________________________________TIMER
+int actualSecs; 
+int actualMins; 
+int startSec = 0; 
+int startMin = 0; 
+int scrnSecs; 
+int scrnMins=0; 
+int restartSecs=0; 
+int restartMins=0; 
+boolean isWin = false;
+void setup() {
+  size(displayWidth, displayHeight);
+  smooth();
+  frameRate(20);
+  minim = new Minim(this);
+  player = minim.loadFile("back.mp3", 2048);
+  stagebackground = minim.loadFile("back_stages.wav", 2048);
+  music = minim.loadFile("menue.wav", 2048);
+  deathsoundChar = new SoundFile(this, "deathsoundChar.wav"); //sounds laden
+  ending = new SoundFile(this, "ending.mp3");
+  jump = new SoundFile(this, "jump.wav");
+  bossSchrei = new SoundFile(this, "bossSchrei.wav");
+  bossDeath = new SoundFile(this, "bossDeath.wav");
+  laugh = new SoundFile(this, "laugh.wav");
+  menue = loadImage("bilder/menue/menue.png");    //bilder laden
+  howtoplay = loadImage("bilder/menue/howtoplay.png");
+  storypage = loadImage("bilder/menue/story.png");    //-----------------------------------------Ändern für story Page
+  //playbutton = loadImage("bilder/menue/play.png"); 
+  //howbutton = loadImage("bilder/menue/how.png");
+  //exitbutton = loadImage("bilder/menue/exit.png");
+  hauptmenue = loadImage("bilder/menue/haupt1.png");      
+  for (int i = 0; i < numFrames; i++) {
+    charWhite[i] = loadImage("bilder/char/white/right/frame-"+i+"White.png");
+    charBlack[i] = loadImage("bilder/char/black/right/frame-"+i+"White.png");
+    charWhiteRight[i] = loadImage("bilder/charWalk/white/right/frame-"+i+"White.png");
+    charBlackRight[i] = loadImage("bilder/charWalk/black/right/frame-"+i+"White.png");
+    charWhiteLeft[i] = loadImage("bilder/charWalk/white/left/frame-"+i+"WhiteLeft.png");
+    charBlackLeft[i] = loadImage("bilder/charWalk/black/left/frame-"+i+"WhiteLeft.png");
+  }
+  for (int j = 0; j < 8; j++) {
+    charBlackAttack[j] = loadImage("bilder/charAttack/black/right/frame-"+j+".png");
+    enemy[j] = loadImage("bilder/enemy/a"+j+".png");
+    charWhiteAttack[j] = loadImage("bilder/charAttack/white/right/frame-"+j+".png");
+  }
+  for (int n = 0; n < 16; n++) {
+    charWhiteDie[n] = loadImage("bilder/charDie/white/frame-"+n+".png");
+    charBlackDie[n] = loadImage("bilder/charDie/black/frame-"+n+".png");
+  }
+  jumpWhiteRight = loadImage("bilder/charJump/white/jumpup1.png");
+  happyweiss = loadImage("bilder/char/happyweiß.png");
+  endbosslachen = loadImage("bilder/enemy/hollow3.png");
+  endbosslachenspiegel = loadImage("bilder/enemy/hollow3spiegel.png");
+  happyschwarz = loadImage("bilder/char/happyschwarz.png");
+  stage1 = loadImage("bilder/stage/map2.PNG");
+  stage_2 = loadImage("bilder/stage/map3.png");
+  stage_3 = loadImage("bilder/stage/stage3.png");
+  scoretabelle = loadImage("bilder/menue/score.png");
+  win = loadImage("bilder/menue/ending2.png");
+  endboss = loadImage("bilder/enemy/hollow2.png");
+  endbossSpiegel = loadImage("bilder/enemy/hollow2spiegel.png");
+  bullet = loadImage("bilder/enemy/Bullet-A.png");
+  hitenemy = loadImage("bilder/enemy/hit.png");
+  orb = loadImage("bilder/enemy/orb.png");
+  shotenemy = loadImage("bilder/enemy/shot.png");
+  balken = loadImage("bilder/stage/balken.png");
+  schluessel = loadImage("bilder/stage/schluessel.png");
+  jumpWhiteLeft = loadImage("bilder/charJump/white/jumpup2.png");
+  jumpBlackRight = loadImage("bilder/charJump/black/jumpup1.png");
+  jumpBlackLeft = loadImage("bilder/charJump/black/jumpup2.png");
+  for (int i = 0; i < 4; i++) {
+    gegner[i] = new gegner();
+  }
+  for (int j = 0; j < 100; j++) {
+    attackboss[j] = new attackBoss(j, random(-100, displayWidth), random(-15, -100), random(10, 30));
+  }
+}
+void draw() {
+  if ((play) && (isWin == false)) {
+    if ((blackstage1) && (whitestage1)) { //stage2
+      if ((blackstage2) && (whitestage2)) { //boss
+        //background(155);
+        if (stage3 == false) {
+          music.pause();
+          stagebackground.pause();
+          xDeath = 99999;
+          yDeath = 00000;
+          xPosWhite = (displayWidth/2 + 75);
+          yPosWhite = 800;  //______________________________________________________________________SPAWN PUNKT ÄNDERN!!!!!!!!!
+          xPosBlack = (displayWidth/2 - 75);
+          yPosBlack = 800;
+          stage3 = true;
+          player.loop();
+          player.setLoopPoints(59070, 198500);
+        }
+        if (pause == false) {
+          image(stage_3, 0, 0);
+          catblack.displayBlack();
+          catblack.blackAttack();
+          catblack.blackCollideStage3();
+          catwhite.displayWhite();
+          catwhite.whiteAttack();
+          catwhite.whiteCollideStage3();
+          bossEnd.displayBoss();
+          bossEnd.lebenBoss();
+          bossEnd.colliderBoss();
+          if (attackBoss) {
+            for (int j = 0; j < 100; j++) {
+              attackboss[j].display();
+              attackboss[j].collide();
+            }
+          }
+          fill(255, 0, 0);
+          ellipse(xDeath + 20, yDeath + 30, 10, 10);
+          timer();
+        } else {
+          pause();
+        }
+      } else {
+        //background(155); //stage2
+        if (stage2 == false) {
+          // music.pause();
+          xDeath = 99999;
+          yDeath = 00000;
+          xPosWhite = 30;
+          yPosWhite = 520;  //______________________________________________________________________SPAWN PUNKT ÄNDERN!!!!!!!!!
+          xPosBlack = 30;
+          yPosBlack = 90;
+          stage2 = true;
+        }
+        if (pause == false) {
+          image(stage_2, 0, 0);
+          catblack.displayBlack();
+          catblack.blackCollideStage2();
+          catblack.blackAttack();
+          catwhite.displayWhite();
+          catwhite.whiteCollideStage2();
+          catwhite.whiteAttack();
+          if (schluessel5 == false) {
+            image (schluessel, 520, 650, 38, 50);
+          }
+          if (balken5 == false) {
+            image (balken, 380, -50, 300, 600);
+          }
+          if (schluessel6 == false) {
+            image (schluessel, 1350, 300, 38, 50);
+          }
+          if (balken6 == false) {
+            image (balken, 840, 480, 300, 600);
+          }
+          if (schluessel7 == false) {
+            image (schluessel, 1020, 110, 38, 50);
+          }
+          if (balken7 == false) {
+            image (balken, 1100, 480, 300, 600);
+          }
+          for (int i = 0; i < 4; i++) {
+            gegner[i].animation(i);
+            //gegner[i].move();
+            //gegner[i].display();
+          }
+          fill(255, 0, 0);
+          ellipse(xDeath + 20, yDeath + 30, 10, 10);
+          timer();
+        } else {
+          pause();
+        }
+      }
+    } else {
+      if (stage_1 == false) {
+        music.pause();
+        stagebackground.loop();
+        stagebackground.setLoopPoints(59070, 198500);
+        stage_1 = true;
+      }
+      if (pause == false) {
+        image(stage1, 0, 0);
+        catblack.displayBlack();
+        catblack.collideBlack();
+        catblack.blackAttack();
+        catwhite.displayWhite();
+        catwhite.collideWhite();
+        catwhite.whiteAttack();
+        fill(255, 0, 0);
+        ellipse(xDeath + 20, yDeath + 30, 10, 10);
+        timer();
+        if (balken1 == false) {
+          textSize(32);
+          //text("1",520,180);
+          image (balken, 400, -50, 300, 600);
+        }
+        if (schluessel1 == false) {
+          textSize(32);
+          //text("1",700,740);
+          image (schluessel, 700, 720, 38, 50);
+        }
+        if (balken2 == false) {
+          textSize(32);
+          //text("2",750,580);
+          image (balken, 630, 480, 300, 600);
+        }
+        if (schluessel2 == false) {
+          textSize(32);
+          //text("2",740,230);
+          image (schluessel, 740, 210, 38, 50);
+        }
+        if (balken3 == false) {
+          textSize(32);
+          //text("3",1000,580);
+          image (balken, 880, 480, 300, 600);
+        }
+        if (schluessel3 == false) {
+          textSize(32);
+          //text("3",1080,210);
+          image (schluessel, 1080, 190, 38, 50);
+        }
+        if (balken4 == false) {
+          textSize(32);
+          //text("4",1130,180);
+          image (balken, 1020, -50, 300, 600);
+        }
+        if (schluessel4 == false) {
+          textSize(32);
+          //text("4",1350,620);
+          image (schluessel, 1350, 600, 38, 50);
+        }
+        //fill(#005F00);
+        //rect(1530,651,200,35);
+        for (int i = 0; i < 4; i++) {
+          gegner[i].animation(i);
+          //gegner[i].move();
+          //gegner[i].display();
+        }
+        //print(deathCounter); //deathcounter
+      } else {
+        pause();
+      }
+    }
+  } else {
+    if (isWin) {
+      image (win, 0, 0);
+      textAlign(CENTER);
+      textSize(50);
+      fill(0);
+      if (highscore) {
+      } else {
+        text(nf(scrnMins, 2) + " : " + nf(scrnSecs, 2), 800, 770);
+        text(deathCounter, 740, 850);
+      }
+      highscore();
+    } else {
+      menu();
+      t =  millis();
+    }
+  }
+  if (play) {
+    if ((charSwitch) && (isWin == false)) {
+      fill(10);
+      ellipse(0, 0, 100, 100);
+    } else {
+      fill(255, 255, 255);
+      ellipse(0, 0, 100, 100);
+    }
+  }
+}
+
+//_________________________________________________________________________________________________________________________WASD________TASTATUR/MAUS
+void keyPressed() {
+  if ((key == 'd') || (key == 'D')) {
+    sh_turningRight = true;
+  }
+  if ((key == 'f') || (key == 'F')) {
+    if (charSwitch) {
+      charSwitch = false;
+    } else {
+      charSwitch = true;
+    }
+  }
+  if ((key == 'a') || (key == 'A')) {
+    sh_turningLeft = true;
+  }
+  if ((key == 'p') || (key == 'P')) {
+    if (pause) {
+      pause = false;
+      t=millis(); //time reset
+    } else {
+       c+=millis()-t; //time reset
+      pause = true;
+    }
+  }
+  if (key == 32) {
+    sh_jump = true; 
+    if ((collideWhite) && (charSwitch ==false)) {
+      vyWhite = -10; 
+      jump.play();
+    } 
+    if ((collideBlack) && (charSwitch)) {
+      vyBlack = -10; 
+      jump.play();
+    }
+  }
+  if ((key == 'z') || (key == 'Z')) {
+    if (isWin) {
+      exit();
+    }
+  }
+}
+void keyReleased() {
+  if ((key == 'd') || (key == 'D')) {
+    sh_turningRight = false;
+  }
+  if ((key == 'a') || (key == 'A')) {
+    sh_turningLeft = false;
+  }
+  //if (keyCode == 32) {sh_jump = false;}
+}
+void mousePressed() {
+  if (mouseButton == LEFT) {
+    if (charSwitch == false) {
+      attackWhite = true;
+    } else {
+      attackBlack = true;
+    }
+  }                                     //_________________________________________________________________Button klick abfrage
+  if (startover) {
+    laugh.play();
+    play = true;
+    cursor(ARROW);
+    startover = false;
+    //soundstop();
+  }
+  if (howover) {
+    how = true;
+    cursor(ARROW);
+    print("over");
+    howover = false;
+  }
+  if (storyover) {
+    cursor(ARROW);
+    story = true;
+    storyover = false;
+  }
+  if (exit) {
+    exit();
+  }
+  if (backover) {
+    highscore = false;
+    story = false;
+    how = false;
+    cursor(ARROW);
+    print("backover");
+    backover = false;
+  }
+  if (highscoreover) {
+    highscore = true;
+    cursor(ARROW);
+    highscoreover = false;
+  }
+  mousepressed = true;
+}
