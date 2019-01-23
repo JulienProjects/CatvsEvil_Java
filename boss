@@ -1,0 +1,223 @@
+class bossend { // class boss
+  bossend() {
+  }
+  void displayBoss() { //boss display
+    if ((lachenzaehler == 0) && (bossLeben != 0)) {
+      if (bossAuge) {
+        image(endboss, 500, 180); //boss anzeigen
+      } else {
+        image(endbossSpiegel, 550, 180); //boss spiegel anzeigen
+      }
+    }
+    if (blachenzaehler) { //bild boss lachen anzeigen lassen
+      lachenzaehler++;
+      if (bossAuge) {
+        image(endbosslachen, 500, 180); //wenn boss lacht
+      } else {
+        image(endbosslachenspiegel, 550, 180); //wenn boss lacht spiegel
+      }
+      if (lachenzaehler == 39) {
+        blachenzaehler = false;
+        lachenzaehler = 0;
+      }
+    }
+    fill(150);
+    rect(800, 900, 300, 10);
+  }
+  void colliderBoss() {
+    //linkes Auge
+    if (bossAuge) {
+      //fill(255,0,0);
+      // ellipse(725,420,80,80);
+      float xDiff = (xPosBlack +20) - 725; //collider bossauge - char
+      float yDiff = (yPosBlack + 20) - 420;
+      double distance = sqrt(sq(xDiff) + sq(yDiff) );
+
+      if (( distance < (80) && (attackBlack) && (bossZeit))) {
+        print("collide");
+        bossZeit = false;
+        bossHit = true;
+        bossAuge = false;
+      }
+    } else {
+      //fill(255,0,0);
+      //ellipse(910,420,80,80);
+      float xDiff2 = (xPosWhite +20) - 910;    //collider bossauge - char
+      float yDiff2 = (yPosWhite + 20) - 420;    
+      double distance2 = sqrt(sq(xDiff2) + sq(yDiff2) );
+
+      if (( distance2 < (80) && (attackWhite) && (bossZeit))) {
+        print("collide");
+        bossZeit = false;
+        bossHit = true;
+        bossAuge = true;
+      }
+    }
+  }
+  void lebenBoss() {
+    rectMode(RADIUS);  // Set rectMode to RADIUS        //Boss Leben Balken
+    fill(255);  // Set fill to white
+    rect(1200, 60, 260, 25);  // Draw white rect using RADIUS mode
+
+    rectMode(CENTER);  // Set rectMode to CENTER
+    fill(150);  // Set fill to gray
+    rect(1200, 60, 500, 25);  // Draw gray rect using CENTER mode
+    if (bossHit) {
+      if (bossLeben != 0) {
+        bossSchrei.play(); // boss hit
+        attackBoss = true;
+      }
+      bossLeben -= 100; //boss leben um 100 verkleinern
+      bossHit = false;
+      xPosWhite = (displayWidth/2 + 75); //reset charwhite
+      yPosWhite = 900;  //______________________________________________________________________SPAWN PUNKT ÄNDERN!!!!!!!!!
+      xPosBlack = (displayWidth/2 - 75); //reset charblack
+      yPosBlack = 900;
+      bossZeit = true;
+    }
+    rectMode(CENTER);  // Set rectMode to CENTER
+    fill(173, 27, 30);  // Set fill to red
+    if (end) {
+      randomSound = (int) random(0, 450);
+      if (randomSound == 78) {  // random lachen boss
+        laugh.play();
+        blachenzaehler = true;
+        lachenzaehler = 1;
+      }
+      //println(randomSound);
+    }
+    rect(1200, 60, bossLeben, 25);  // Draw red rect using CENTER mode
+    if (bossLeben == 0) { //boss leben abfrage
+      if (end) {
+        bossDeath.play();
+        attackBoss = false;
+        happy = false;
+        //isWin = true;
+        end = false;
+      }
+      image(happyweiss, xPosWhite, yPosWhite, 45, 61);    //happychar white  anzeigen
+      image(happyschwarz, xPosBlack, yPosBlack, 45, 61);  //happychar black  anzeigen
+      tint(255, 127 - (endzaehler * 3)); //deckraft verkleinern
+      image(endbossSpiegel, 500, 180);
+      tint(255, 255);
+      endzaehler++; //end animation
+      if (endzaehler == 70) {
+        player.pause();
+        ending.play();
+        isWin = true;  //win setzen
+        score = str(scrnMins) +  " " +  str(scrnSecs) + " " + str(deathCounter); //"scrnMin" + " : " + "scrnSecs";  
+        String[] list = split(score, ' ');
+        saveStrings("score.txt", list);                                         //zeit und deathcounter in score.txt speichern für menü
+      }
+    }
+  }
+}
+
+class attackBoss { //boss kometen
+  public  float kreisx = 0;
+  public float kreisy = 0;
+  public float kreisxspeed= random(-3, 15);
+  public float kreisyspeed = random(-3, 15);
+  public float kreissize;
+  public int currentFrame = 0;
+  public int delay = 5;
+  public int NumZahl = 0;
+  public boolean des = false;
+  attackBoss(int p_num, float p_x, float p_y, float p_size) {
+    kreisx = p_x;
+    kreisy = p_y;
+    NumZahl = p_num;
+    kreissize = p_size;
+  }
+  void display() { //kometen anzeigen lassen
+    //println(NumZahl);
+    fill(255, 145, 100);
+    currentFrame++;
+    if (currentFrame < (NumZahl) * delay) {
+      return;
+    }
+    kreisx += kreisxspeed;
+    kreisy += kreisyspeed;  //kometen animation
+    if (kreisy > 2000) {
+      kreisx = random(-100, 800);
+      kreisy = random(-1, -400);
+    }
+    //ellipse(kreisx,kreisy,kreissize,kreissize);
+    if (des) { //des = destroy abfrage ob der komet destroyd ist
+    } else {
+      image (orb, kreisx, kreisy, kreissize, kreissize);
+    }
+  }
+  void collide() {
+    if (des == false) {
+      int recX = 650;
+      int recY = 900;
+      float DeltaX = (kreisx + kreissize) - max(recX, min((kreisx + kreissize), recX + 300));    //rect(800,900,300,10);
+      float DeltaY = (kreisy + kreissize) - max(recY, min((kreisy + kreissize), recY + 10));
+
+      if ((DeltaX * DeltaX + DeltaY * DeltaY) < ( 30.5 )) { //collider komet - savebalken 
+        des = true;                                         //komet wird destroyd
+      }
+
+      float xDiff = (xPosBlack) - kreisx + (kreissize / 2);
+      float yDiff = (yPosBlack) - kreisy + (kreissize / 2); //collider charblack - komet
+      double distance = sqrt(sq(xDiff) + sq(yDiff) );  
+
+      if ( distance < (60 / 2)) {
+        isDeadBlack = true;
+        des = true;
+      }
+
+      float xDiff2 = (xPosWhite) - kreisx + (kreissize / 2);
+      float yDiff2 = (yPosWhite) - kreisy + (kreissize / 2); //collider charwhite - komet
+      double distance2 = sqrt(sq(xDiff2) + sq(yDiff2) );
+
+      if ( distance2 < (60 / 2)) {
+        isDead = true;
+        des = true;
+      }
+      if (isDeadBlack) {
+        currentFrame = (currentFrame+1) % 16;  // Use % to cycle through frames
+        image(charBlackDie[currentFrame], xPosBlack, yPosBlack, 78, 61);
+        dieBlack += 1;
+        if (dieBlack == 5) { //schwarz death
+          //fill(255,0,0);
+          //ellipse(xPosBlack,yPosBlack,5,5);
+          vyBlack = 0;
+          xDeath = xPosBlack;
+          yDeath = yPosBlack;
+          deathsoundChar.play();                //spawn punk white 30 550
+          isDead = false;                              // 30 90
+          isDeadBlack = false;
+          xPosWhite = (displayWidth/2 + 75);
+          yPosWhite = 900;  //______________________________________________________________________SPAWN PUNKT ÄNDERN!!!!!!!!!
+          xPosBlack = (displayWidth/2 - 75);
+          yPosBlack = 900;
+          dieBlack = 0;
+          deathCounter++;
+          print(deathCounter);
+        }
+      }
+
+      if (isDead) { 
+        currentFrame = (currentFrame+1) % 16; 
+        image(charWhiteDie[currentFrame], xPosWhite, yPosWhite, 78, 61);
+        dieWhite += 1;
+        if (dieWhite == 5) {  //weiß death
+          xDeath = xPosWhite;
+          yDeath = yPosWhite;
+          vyWhite = 0;
+          deathsoundChar.play();  //spawn punk white 30 550
+          isDead = false;          // 30 90
+          xPosWhite = (displayWidth/2 + 75);
+          yPosWhite = 900;  //______________________________________________________________________SPAWN PUNKT ÄNDERN!!!!!!!!!
+          xPosBlack = (displayWidth/2 - 75);
+          yPosBlack = 900;
+          dieWhite = 0;
+          deathCounter++;
+          print(deathCounter);
+        }
+      }
+    }
+  }
+}
