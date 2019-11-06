@@ -1,3 +1,4 @@
+//TODO: Variablen Scripts zuordnen. Müssen alle Variablen Global sein?
 //_______________________________________________________________________________________________VARIABLEN deklarieren - initialisieren
 int displayWidth = 1600;
 int displayHeight = 1000;
